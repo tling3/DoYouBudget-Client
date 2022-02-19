@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div>
-      <Link path="/">DoYouBudget</Link>
+    <div className="ui secondary pointing menu">
+      <Link to="/" className="ui header item">
+        DoYouBudget
+      </Link>
+      <Link to="/categories" className="ui header item">
+        Categories
+      </Link>
     </div>
   );
 };

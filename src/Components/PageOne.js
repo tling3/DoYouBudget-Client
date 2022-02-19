@@ -1,7 +1,7 @@
 import React from "react";
 
 const PageOne = () => {
-  return <div>Page One</div>;
+  return <div>Placeholder Component</div>;
 };
 
 export default PageOne;

@@ -1,0 +1,7 @@
+.hidden {
+  visibility: hidden;
+}
+
+.ui.fluid.card:hover .right.floated.ui.button {
+  visibility: visible;
+}

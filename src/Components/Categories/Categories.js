@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getCategories } from "../../Actions/index";
+import Utility from "../../Shared/Utility/Utility";
 import "./Categories.css";
 
 class Categories extends React.Component {
@@ -22,26 +23,12 @@ class Categories extends React.Component {
     return this.props.categories.map((item) => {
       counter++;
       return (
-        <div className="ui one column grid" key={item.id}>
-          <div className="column">
-            <div className="ui fluid card">
-              <div className="content">
-                <button
-                  type="button"
-                  className={`right floated ui button hidden`}
-                >
-                  Edit
-                </button>
-                <div className="header">
-                  {counter}. {item.category}
-                </div>
-                <div className="content">
-                  <div className="description">$ {item.budget}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <tr key={item.id}>
+          <td>{counter}</td>
+          <td>{item.category}</td>
+          <td>$ {item.budget}</td>
+          <td>{Utility.ConvertDateTime(item.postDate)}</td>
+        </tr>
       );
     });
   };
@@ -53,10 +40,14 @@ class Categories extends React.Component {
       return sum;
     });
     return (
-      <div className="ui statistic">
-        <div className="label">Categories Total</div>
-        <div className="value">$ {budgetArray[budgetArray.length - 1]}</div>
-      </div>
+      <tfoot>
+        <tr>
+          <th></th>
+          <th className="right aligned"><strong>Total</strong></th>
+          <th><strong>$ {budgetArray[budgetArray.length - 1]}</strong></th>
+          <th></th>
+        </tr>
+      </tfoot>
     );
   };
 
@@ -64,19 +55,26 @@ class Categories extends React.Component {
     console.log("categories", this.props.categories);
     return (
       <div>
-        {this.mapCategories()}
+        <table className="ui selectable celled table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Category</th>
+              <th>Expense</th>
+              <th>Post Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.mapCategories()}
+          </tbody>
+          {this.getCategoriesTotal()}
+        </table>
         <div className="ui hidden divider"></div>
-        <div className="ui divider"></div>
-        <div className="ui hidden divider"></div>
-
         <form className="ui form" onSubmit={this.onSubmit}>
           <button type="button" className="medium ui button">
             Add Category
           </button>
         </form>
-
-        <div className="ui hidden divider"></div>
-        {this.getCategoriesTotal()}
       </div>
     );
   }

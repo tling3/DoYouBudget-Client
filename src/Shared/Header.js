@@ -10,6 +10,9 @@ const Header = () => {
       <Link to="/categories" className="ui header item">
         Categories
       </Link>
+      <Link to="/paw1" className="ui header item">
+        Paw1
+      </Link>
     </div>
   );
 };

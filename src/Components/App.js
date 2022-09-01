@@ -3,6 +3,7 @@ import { Router, Route } from "react-router-dom";
 import history from "../History";
 import PageOne from "./PageOne";
 import Categories from "./Categories/Categories";
+import Paw1 from "./Sand/Paw1";
 import Header from "../Shared/Header";
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
           <Header />
           <Route path="/" exact component={PageOne}></Route>
           <Route path="/categories" exact component={Categories}></Route>
+          <Route path="/paw1" exact component={Paw1}></Route>
         </div>
       </Router>
     </div>

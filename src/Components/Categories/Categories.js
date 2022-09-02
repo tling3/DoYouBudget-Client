@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getCategories } from "../../Actions/index";
 import Utility from "../../Shared/Utility/Utility";
+import { Link } from 'react-router-dom'
 import "./Categories.css";
 
 class Categories extends React.Component {
@@ -71,9 +72,9 @@ class Categories extends React.Component {
         </table>
         <div className="ui hidden divider"></div>
         <form className="ui form" onSubmit={this.onSubmit}>
-          <button type="button" className="medium ui button">
+          <Link to='/addCategory' className="medium ui basic button">
             Add Category
-          </button>
+          </Link>
         </form>
       </div>
     );

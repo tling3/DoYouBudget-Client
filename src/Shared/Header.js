@@ -13,6 +13,15 @@ const Header = () => {
       <Link to="/paw1" className="ui header item">
         Paw1
       </Link>
+      <Link to="/paw2" className="ui header item">
+        Paw2
+      </Link>
+      <Link to="/paw3" className="ui header item">
+        Paw3
+      </Link>
+      <Link to="/paw4" className="ui header item">
+        Paw4
+      </Link>
     </div>
   );
 };

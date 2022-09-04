@@ -2,8 +2,6 @@ import React from 'react'
 import Modal from '../../Shared/Modal'
 
 class AddCategories extends React.Component {
-
-
     addCategories() {
         return <div>
             Add a Category
@@ -11,10 +9,8 @@ class AddCategories extends React.Component {
     }
 
     render() {
-        const thisRoute = '/categories'
-        
         return (
-            <Modal historyPush={thisRoute}>
+            <Modal onDismiss='/categories'>
                 {this.addCategories()}
             </Modal>
         );

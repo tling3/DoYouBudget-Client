@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getCategories } from "../../Actions/index";
 import Utility from "../../Shared/Utility/Utility";
 import { Link } from 'react-router-dom'
+import NoPropagate from "../NoPropagate";
 import "./Categories.css";
 
 class Categories extends React.Component {
@@ -72,9 +73,11 @@ class Categories extends React.Component {
         </table>
         <div className="ui hidden divider"></div>
         <form className="ui form" onSubmit={this.onSubmit}>
-          <Link to='/addCategory' className="medium ui basic button">
-            Add Category
-          </Link>
+          <Link to='/addCategory' className="medium ui basic button">Add Category</Link>
+          <Link to='/paw1' className="medium ui basic button">Paw 1</Link>
+          <Link to='paw2' className="medium ui basic button">Paw 2</Link>
+          <Link to='/paw3' className="medium ui basic button">Paw 3</Link>
+          <Link to='/paw4' className="medium ui basic button">Paw 4</Link>
         </form>
       </div>
     );

@@ -1,9 +1,11 @@
-import React from "react";
-import { Router, Route } from "react-router-dom";
-import history from "../History";
-import PageOne from "./PageOne";
-import Categories from "./Categories/Categories";
-import Header from "../Shared/Header";
+import React from "react"
+import { Router, Route } from "react-router-dom"
+import history from "../History"
+import PageOne from "./PageOne"
+import Categories from "./Categories/Categories"
+import AddCategory from "./AddCategory/AddCategory"
+import EditCategory from "./EditCategory/EditCategory"
+import Header from "../Shared/Header"
 
 const App = () => {
   return (
@@ -13,10 +15,12 @@ const App = () => {
           <Header />
           <Route path="/" exact component={PageOne}></Route>
           <Route path="/categories" exact component={Categories}></Route>
+          <Route path="/addCategory" exact component={AddCategory}></Route>
+          <Route path='/editCategory/:id' component={EditCategory}></Route>
         </div>
       </Router>
     </div>
   );
 };
 
-export default App;
+export default App

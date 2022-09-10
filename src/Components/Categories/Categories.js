@@ -19,6 +19,14 @@ class Categories extends React.Component {
     event.preventDefault();
   }
 
+  renderAdmin(item) {
+    return (
+      <React.Fragment>
+        <Link to={`/editCategory/${item.id}`} className="medium ui right floated basic button">Edit</Link>
+      </React.Fragment>
+    );
+  }
+
   mapCategories = () => {
     var counter = 0;
     return this.props.categories.map((item) => {
@@ -29,6 +37,7 @@ class Categories extends React.Component {
           <td>{item.category}</td>
           <td>$ {item.budget}</td>
           <td>{Utility.ConvertDateTime(item.postDate)}</td>
+          <td>{this.renderAdmin(item)}</td>
         </tr>
       );
     });
@@ -47,15 +56,18 @@ class Categories extends React.Component {
           <th className="right aligned"><strong>Total</strong></th>
           <th><strong>$ {budgetArray[budgetArray.length - 1]}</strong></th>
           <th></th>
+          <th></th>
         </tr>
       </tfoot>
     );
   };
 
   render() {
-    console.log("categories", this.props.categories);
     return (
       <div>
+        <div className="margin right">
+          <Link to='/addCategory' className="medium ui right basic button">Add Category</Link>
+        </div>
         <table className="ui selectable celled table">
           <thead>
             <tr>
@@ -63,6 +75,7 @@ class Categories extends React.Component {
               <th>Category</th>
               <th>Expense</th>
               <th>Post Date</th>
+              <th className="ui right aligned">Admin</th>
             </tr>
           </thead>
           <tbody>
@@ -71,11 +84,6 @@ class Categories extends React.Component {
           {this.getCategoriesTotal()}
         </table>
         <div className="ui hidden divider"></div>
-        <form className="ui form" onSubmit={this.onSubmit}>
-          <Link to='/addCategory' className="medium ui basic button">
-            Add Category
-          </Link>
-        </form>
       </div>
     );
   }

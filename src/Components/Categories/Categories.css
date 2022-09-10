@@ -1,0 +1,11 @@
+.hidden {
+  visibility: hidden;
+}
+
+.margin {
+  margin: 1%;
+}
+
+.right {
+  text-align: right;
+}

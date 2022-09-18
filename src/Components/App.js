@@ -6,6 +6,7 @@ import Categories from "./Categories/Categories"
 import AddCategory from "./AddCategory/AddCategory"
 import EditCategory from "./EditCategory/EditCategory"
 import Header from "../Shared/Header"
+import MonthlyLogging from "./MonthlyLogging/MonthlyLogging"
 
 const App = () => {
   return (
@@ -14,9 +15,10 @@ const App = () => {
         <div>
           <Header />
           <Route path="/" exact component={PageOne}></Route>
-          <Route path="/categories" exact component={Categories}></Route>
-          <Route path="/addCategory" exact component={AddCategory}></Route>
+          <Route path="/categories" component={Categories}></Route>
+          <Route path="/addCategory" component={AddCategory}></Route>
           <Route path='/editCategory/:id' component={EditCategory}></Route>
+          <Route path='/logging' component={MonthlyLogging}></Route>
         </div>
       </Router>
     </div>

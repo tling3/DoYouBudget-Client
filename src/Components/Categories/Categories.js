@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getCategories } from "../../Actions/index";
 import Utility from "../../Shared/Utility/Utility";
 import { Link } from 'react-router-dom'
+import PageHeader from "../../Shared/Components/PageHeader";
 import "./Categories.css";
 
 class Categories extends React.Component {
@@ -36,6 +37,7 @@ class Categories extends React.Component {
           <td>{counter}</td>
           <td>{item.category}</td>
           <td>$ {item.budget}</td>
+          <td>{item.type}</td>
           <td>{Utility.ConvertDateTime(item.postDate)}</td>
           <td>{this.renderAdmin(item)}</td>
         </tr>
@@ -57,14 +59,24 @@ class Categories extends React.Component {
           <th><strong>$ {budgetArray[budgetArray.length - 1]}</strong></th>
           <th></th>
           <th></th>
+          <th></th>
         </tr>
       </tfoot>
     );
   };
 
+  getHeader = () => {
+    return (
+      <React.Fragment>
+        <PageHeader title='Categories' icon='bars icon' />
+      </React.Fragment>
+    );
+  }
+
   render() {
     return (
       <div>
+        {this.getHeader()}
         <div className="margin right">
           <Link to='/addCategory' className="medium ui right basic button">Add Category</Link>
         </div>
@@ -73,7 +85,8 @@ class Categories extends React.Component {
             <tr>
               <th></th>
               <th>Category</th>
-              <th>Expense</th>
+              <th>Budget</th>
+              <th>Type</th>
               <th>Post Date</th>
               <th className="ui right aligned">Admin</th>
             </tr>

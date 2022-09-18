@@ -3,7 +3,8 @@ import {
   GET_CATEGORY,
   UPDATE_CATEGORY,
   INSERT_CATEGORY,
-  DELETE_CATEGORY
+  DELETE_CATEGORY,
+  GET_CATEGORY_TYPE
 } from "./Types"
 import DoYouBudget from "../Apis/DoYouBudget"
 import history from "../History"
@@ -58,4 +59,10 @@ export const deleteCategory = id => async dispatch => {
   const response = await DoYouBudget.delete(`/api/categories/${idInt}`)
   dispatch({ type: DELETE_CATEGORY, payload: response.data })
   history.push('/categories')
+}
+
+export const getCategoryType = () => async dispatch => {
+  const response = await DoYouBudget.get('/api/categoryType')
+  console.log("ACTION type: ", response)
+  dispatch({ type: GET_CATEGORY_TYPE, payload: response.data })
 }

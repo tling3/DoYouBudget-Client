@@ -20,17 +20,8 @@ class AddCategories extends React.Component {
     }
 
     componentDidMount() {
-        console.log("did mount selected", this.state.selected)
-        console.log("getCategoryType fired")
         this.props.getCategoryType()
-        // console.log("did mount this.props.categoryType: ", this.props.categoryType)
-        // this.setState({ selected: this.props.categoryType[0] })
     }
-
-    // componentDidUpdate(){
-    //     console.log("component Did Update fired")
-    //     this.setState({ selectedType: this.props.categoryType[0] })
-    // }
 
     handleCategoryChange = e => {
         this.setState({ category: e.target.value })
@@ -48,70 +39,58 @@ class AddCategories extends React.Component {
         this.setState({ type: e.target.value })
     }
 
+    handleSelectChange = item => {
+        this.setState({ selected: item })
+    }
+
     handleSubmit = e => {
         e.preventDefault()
         let category = e.target[0].value
         let budget = e.target[1].value
         let postDate = e.target[2].value
-        this.props.insertCategory(budget, category, postDate)
+        let categoryType = this.state.selected
+        let isValid = categoryType.id !== 0 && category !== '' && budget !== 0 && postDate !== ''
+        if (isValid) {
+            this.props.insertCategory(budget, category, postDate, categoryType.id)
+        } else {
+            // console.log("validation")
+        }
     }
 
-    handleSelectChange = item => {
-        this.setState({ selected: item })
-    }
+    // renderSelectOptions = () => {
+    //     return this.props.categoryType.map(item => {
+    //         if (item.type === this.state.selected.type) {
+    //             return null
+    //         }
+    //         return (
+    //             <div
+    //                 key={item.typeId}
+    //                 className='item'
+    //                 onClick={() => { this.handleSelectChange(item) }}>
+    //                 {item.type}
+    //             </div>
+    //         );
+    //     });
+    // }
 
-    renderSelectOptions = () => {
-        console.log("renderSelectOptions fired")
-        return this.props.categoryType.map(item => {
-            if (item.type === this.state.selected.type) {
-                return null
-            }
+    // setOpen = open => {
+    //     this.setState({ open: open })
+    // }
 
-            // if (this.state.selectedType == '') {
-            //     this.setState({ selectedType: item.type })
-            // }
-            else
-
-                return (
-                    <div
-                        key={item.typeId}
-                        className='item'
-                        onClick={() => { this.handleSelectChange(item) }}>
-                        {item.type}
-                    </div>
-                );
-        });
-    }
-
-    setOpen = open => {
-        this.setState({ open: open })
-    }
-
-    renderDropDown = () => {
-        console.log("renderDropDown fired this.state.selectedType: ", this.state.selectedType)
-        // let text = "Please Select a Type";
-        // if (this.state.selectedType != null) {
-        //     text = this.state.selectedType.type
-        // }
-
-
-        return (
-            <div onClick={() => { this.setOpen(!this.state.open) }} className={`ui selection dropdown ${this.state.open ? 'visible active' : ''}`}>
-                <i className='dropdown icon'></i>
-                <div className='text'>{this.state.selectedType.type}</div>
-                {/* <div className='text'>{text}</div> */}
-                <div className={`menu ${this.state.open ? 'visible transition' : ''}`}>
-                    {this.renderSelectOptions()}
-                </div>
-            </div>
-        );
-    }
+    // renderDropDown = () => {
+    //     return (
+    //         <div onClick={() => { this.setOpen(!this.state.open) }} className={`ui selection dropdown ${this.state.open ? 'visible active' : ''}`}>
+    //             <i className='dropdown icon'></i>
+    //             <div className='text'>{this.state.selected.type}</div>
+    //             <div className={`menu ${this.state.open ? 'visible transition' : ''}`}>
+    //                 {this.renderSelectOptions()}
+    //             </div>
+    //         </div>
+    //     );
+    // }
 
     render() {
         console.log("render fired")
-        console.log("selected type at render: ", this.state.selectedType)
-        console.log("this.props.categoryType at render: ", this.props.categoryType)
-        /*  */
         return (
             ReactDOM.createPortal(
                 <div onClick={() => { history.push('/categories') }} className='ui dimmer modals visible active'>
@@ -129,26 +108,18 @@ class AddCategories extends React.Component {
                                         <label>Budget</label>
                                         <div className='ui right labeled input'>
                                             <label className='ui label'>$</label>
-                                            <input type='text' placeholder='Budget...' value={this.state.budget} onChange={this.handleBudgetChange}></input>
+                                            <input type='number' placeholder='Budget...' value={this.state.budget} onChange={this.handleBudgetChange}></input>
                                             <div className='ui basic label'>.00</div>
                                         </div>
                                     </div>
-
-
-
                                     <div className='four wide field'>
                                         <label>Type</label>
-                                        {/* <input type='text' placeholder='Type...' value={this.state.type} onChange={this.handleTypeChange}></input> */}
-                                        {/* {this.renderDropDown()} */}
                                         <DropDown
                                             selected={this.state.selected}
                                             onSelectedChange={this.handleSelectChange}
                                             options={this.props.categoryType}
                                         />
                                     </div>
-
-
-
                                     <div className='four wide field'>
                                         <label>Post Date</label>
                                         <div className='ui icon input'>
@@ -168,7 +139,6 @@ class AddCategories extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("mapStateToProps state.categoryType", state.categoryType)
     return { categoryType: Object.values(state.categoryType) }
 }
 

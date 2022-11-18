@@ -1,10 +1,10 @@
-import React from "react";
-import { connect } from "react-redux";
-import { getCategories } from "../../Actions/index";
-import Utility from "../../Shared/Utility/Utility";
+import React from "react"
+import { connect } from "react-redux"
+import { getCategories } from "../../Actions/index"
+import Utility from "../../Shared/Utility/Utility"
 import { Link } from 'react-router-dom'
-import PageHeader from "../../Shared/Components/PageHeader";
-import "./Categories.css";
+import PageHeader from "../../Shared/Components/PageHeader"
+import "./Categories.css"
 
 class Categories extends React.Component {
   state = {
@@ -13,11 +13,12 @@ class Categories extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getCategories();
+    console.log("categories didMount fired")
+    this.props.getCategories()
   }
 
   onSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
   }
 
   renderAdmin(item) {
@@ -28,17 +29,25 @@ class Categories extends React.Component {
     );
   }
 
+  getHeader = () => {
+    return (
+      <React.Fragment>
+        <PageHeader title='Categories' icon='th list icon' />
+      </React.Fragment>
+    );
+  }
+
   mapCategories = () => {
     var counter = 0;
+    console.log("this.props.categories", this.props.categories)
     return this.props.categories.map((item) => {
-      counter++;
       return (
         <tr key={item.id}>
-          <td>{counter}</td>
+          <td>{++counter}</td>
           <td>{item.category}</td>
           <td>$ {item.budget}</td>
           <td>{item.type}</td>
-          <td>{Utility.ConvertDateTime(item.postDate)}</td>
+          <td>{Utility.GetDay(item.postDate)}</td>
           <td>{this.renderAdmin(item)}</td>
         </tr>
       );
@@ -48,8 +57,8 @@ class Categories extends React.Component {
   getCategoriesTotal = () => {
     var sum = 0;
     var budgetArray = this.props.categories.map((item) => {
-      sum += item.budget;
-      return sum;
+      sum += item.budget
+      return sum
     });
     return (
       <tfoot>
@@ -65,14 +74,6 @@ class Categories extends React.Component {
     );
   };
 
-  getHeader = () => {
-    return (
-      <React.Fragment>
-        <PageHeader title='Categories' icon='bars icon' />
-      </React.Fragment>
-    );
-  }
-
   render() {
     return (
       <div>
@@ -87,7 +88,7 @@ class Categories extends React.Component {
               <th>Category</th>
               <th>Budget</th>
               <th>Type</th>
-              <th>Post Date</th>
+              <th>Post Date of this Month</th>
               <th className="ui right aligned">Admin</th>
             </tr>
           </thead>
@@ -102,8 +103,8 @@ class Categories extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return { categories: Object.values(state.categories) };
+const mapStateToProps = state => {
+  return { categories: Object.values(state.categories) }
 };
 
-export default connect(mapStateToProps, { getCategories })(Categories);
+export default connect(mapStateToProps, { getCategories })(Categories)

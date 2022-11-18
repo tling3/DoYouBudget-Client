@@ -2,23 +2,40 @@ import React from 'react'
 import Modal from '../../Shared/Modal'
 import history from '../../History'
 import { connect } from 'react-redux'
-import { getCategory, updateCategory, deleteCategory } from '../../Actions'
+import { getCategory, updateCategory, deleteCategory, getCategoryType } from '../../Actions'
 import Utility from '../../Shared/Utility/Utility'
+import DropDown from '../../Shared/Components/DropDown'
 
 class EditCategory extends React.Component {
     state = {
+        categoryType: [],
         category: '',
         budget: 0,
-        postDate: ''
+        postDate: '',
+        selected: {
+            id: 0,
+            type: 'Please Select a Type'
+        }
     }
 
     componentDidMount() {
         let id = this.props.match.params.id
         this.props.getCategory(id)
+        this.props.getCategoryType()
+        this.mapCategoryToState()
+    }
+
+    mapCategoryToState = () => {
         this.setState({ category: this.props.category.category })
         this.setState({ budget: this.props.category.budget })
-        let date = Utility.FormatDate(this.props.category.postDate.toString())
+        let date = Utility.CalendarDate(this.props.category.postDate.toString())
         this.setState({ postDate: date })
+        console.log("formatted date", date)
+        let categoryType = {
+            id: this.props.category.typeId,
+            type: this.props.category.type
+        }
+        this.setState({ selected: categoryType })
     }
 
     onCategoryChange = e => {
@@ -31,6 +48,10 @@ class EditCategory extends React.Component {
 
     onPostDateChange = e => {
         this.setState({ postDate: e.target.value })
+    }
+
+    handleSelectChange = item => {
+        this.setState({ selected: item })
     }
 
     renderContent() {
@@ -50,6 +71,13 @@ class EditCategory extends React.Component {
                         </div>
                     </div>
                     <div className='four wide field'>
+                        <label>Type</label>
+                        <DropDown
+                            selected={this.state.selected}
+                            onSelectedChange={this.handleSelectChange}
+                            options={this.props.categoryType} />
+                    </div>
+                    <div className='four wide field'>
                         <label>Post Date</label>
                         <div className='ui icon input'>
                             <input type='date' placeholder='Post Date...' value={this.state.postDate} onChange={this.onPostDateChange}></input>
@@ -67,7 +95,8 @@ class EditCategory extends React.Component {
             this.state.budget,
             this.state.category,
             this.state.postDate,
-            1)
+            1,
+            this.state.selected.id)
     }
 
     handleDeleteClick = () => {
@@ -96,7 +125,10 @@ class EditCategory extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    return { category: state.categories[ownProps.match.params.id] }
+    return {
+        category: state.categories[ownProps.match.params.id],
+        categoryType: Object.values(state.categoryType)
+    }
 }
 
-export default connect(mapStateToProps, { getCategory, updateCategory, deleteCategory })(EditCategory)
+export default connect(mapStateToProps, { getCategory, updateCategory, deleteCategory, getCategoryType })(EditCategory)

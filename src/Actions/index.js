@@ -11,8 +11,6 @@ import {
 import DoYouBudget from "../Apis/DoYouBudget"
 import history from "../History"
 
-var fsdf = "fsdf"
-
 export const getCategories = () => async dispatch => {
   const response = await DoYouBudget.get("/api/categories")
   dispatch({ type: GET_CATEGORIES, payload: response.data })
@@ -75,28 +73,13 @@ export const getCategoryType = () => async dispatch => {
 
 export const getMonthlyLogs = (userId, month) => async dispatch => {
   // TODO: check if you need to parse
-  console.log("getMonthlyLogs action fired")
-
   let userIdInt = parseInt(userId)
   let monthInt = parseInt(month)
-  // let url = `/api/monthlyLogs/${userIdInt}/${monthInt}`
-  // console.log("url", url)
-
   const response = await DoYouBudget.get(`/api/monthlyLogs/${userIdInt}/${monthInt}`)
   dispatch({ type: GET_USER_MONTHLY_LOG_BY_MONTH, payload: response.data })
 }
 
-export const insertMonthlyLog = (amount, category, date, comment, month) => dispatch => {
-
-  // console.log("action amount", parseInt(amount))
-  // console.log("action category", category)
-  // console.log("action date", date)
-  // console.log("action comment", comment)
-  // console.log("action month", month)
-
-  console.log("insertMonthlyLog action fired")
-
-
+export const insertMonthlyLog = (amount, category, date, comment, month) => async dispatch => {
   let body = {
     userId: 1,
     amount: parseInt(amount),
@@ -107,9 +90,6 @@ export const insertMonthlyLog = (amount, category, date, comment, month) => disp
     modifiedBy: "TL",
   }
 
-  const response = DoYouBudget.post('api/monthlyLogs', body)
-  console.log("action response hopefully: ", response.data)
-
+  const response = await DoYouBudget.post('api/monthlyLogs', body)
   dispatch({ type: INSERT_MONTHLY_LOG, payload: response.data })
-  // history.push("/")
 }

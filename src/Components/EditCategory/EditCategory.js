@@ -30,7 +30,6 @@ class EditCategory extends React.Component {
         this.setState({ budget: this.props.category.budget })
         let date = Utility.CalendarDate(this.props.category.postDate.toString())
         this.setState({ postDate: date })
-        console.log("formatted date", date)
         let categoryType = {
             id: this.props.category.typeId,
             type: this.props.category.type
@@ -54,9 +53,23 @@ class EditCategory extends React.Component {
         this.setState({ selected: item })
     }
 
+    handleUpdateClick = () => {
+        this.props.updateCategory(
+            this.props.match.params.id,
+            this.state.budget,
+            this.state.category,
+            this.state.postDate,
+            1,
+            this.state.selected.id)
+    }
+
+    handleDeleteClick = () => {
+        this.props.deleteCategory(this.props.match.params.id)
+    }
+
     renderContent() {
         return (<div >
-            <form className='ui form' >
+            <form className='ui form'>
                 <div className='fields'>
                     <div className='seven wide field'>
                         <label>Category</label>
@@ -87,20 +100,6 @@ class EditCategory extends React.Component {
                 </div>
             </form>
         </div>);
-    }
-
-    handleUpdateClick = () => {
-        this.props.updateCategory(
-            this.props.match.params.id,
-            this.state.budget,
-            this.state.category,
-            this.state.postDate,
-            1,
-            this.state.selected.id)
-    }
-
-    handleDeleteClick = () => {
-        this.props.deleteCategory(this.props.match.params.id)
     }
 
     renderActions() {

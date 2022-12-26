@@ -13,18 +13,13 @@ class Categories extends React.Component {
   };
 
   componentDidMount() {
-    console.log("categories didMount fired")
     this.props.getCategories()
-  }
-
-  onSubmit(event) {
-    event.preventDefault()
   }
 
   renderAdmin(item) {
     return (
       <React.Fragment>
-        <Link to={`/editCategory/${item.id}`} className="medium ui right floated basic button">Edit</Link>
+        <Link to={`/editCategory/${item.id}`} className="medium ui basic button">Edit</Link>
       </React.Fragment>
     );
   }
@@ -39,7 +34,6 @@ class Categories extends React.Component {
 
   mapCategories = () => {
     var counter = 0;
-    console.log("this.props.categories", this.props.categories)
     return this.props.categories.map((item) => {
       return (
         <tr key={item.id}>
@@ -48,7 +42,7 @@ class Categories extends React.Component {
           <td>$ {item.budget}</td>
           <td>{item.type}</td>
           <td>{Utility.GetDay(item.postDate)}</td>
-          <td>{this.renderAdmin(item)}</td>
+          <td className="ui center aligned">{this.renderAdmin(item)}</td>
         </tr>
       );
     });
@@ -89,7 +83,7 @@ class Categories extends React.Component {
               <th>Budget</th>
               <th>Type</th>
               <th>Post Date of this Month</th>
-              <th className="ui right aligned">Admin</th>
+              <th className="center aligned">Admin</th>
             </tr>
           </thead>
           <tbody>

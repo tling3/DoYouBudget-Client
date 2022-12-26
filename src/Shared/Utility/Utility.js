@@ -1,5 +1,4 @@
 class Utility {
-
     static GetDay = dateTime => {
         let shortDate = new Date(dateTime).toLocaleDateString('en-US')
         let firstForwardIndex = shortDate.indexOf('/')

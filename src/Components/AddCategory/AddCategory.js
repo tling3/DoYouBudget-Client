@@ -35,10 +35,6 @@ class AddCategories extends React.Component {
         this.setState({ postDate: e.target.value })
     }
 
-    handleTypeChange = e => {
-        this.setState({ type: e.target.value })
-    }
-
     handleSelectChange = item => {
         this.setState({ selected: item })
     }
@@ -53,44 +49,11 @@ class AddCategories extends React.Component {
         if (isValid) {
             this.props.insertCategory(budget, category, postDate, categoryType.id)
         } else {
-            // console.log("validation")
+            // todo: what needs to be here
         }
     }
 
-    // renderSelectOptions = () => {
-    //     return this.props.categoryType.map(item => {
-    //         if (item.type === this.state.selected.type) {
-    //             return null
-    //         }
-    //         return (
-    //             <div
-    //                 key={item.typeId}
-    //                 className='item'
-    //                 onClick={() => { this.handleSelectChange(item) }}>
-    //                 {item.type}
-    //             </div>
-    //         );
-    //     });
-    // }
-
-    // setOpen = open => {
-    //     this.setState({ open: open })
-    // }
-
-    // renderDropDown = () => {
-    //     return (
-    //         <div onClick={() => { this.setOpen(!this.state.open) }} className={`ui selection dropdown ${this.state.open ? 'visible active' : ''}`}>
-    //             <i className='dropdown icon'></i>
-    //             <div className='text'>{this.state.selected.type}</div>
-    //             <div className={`menu ${this.state.open ? 'visible transition' : ''}`}>
-    //                 {this.renderSelectOptions()}
-    //             </div>
-    //         </div>
-    //     );
-    // }
-
     render() {
-        console.log("render fired")
         return (
             ReactDOM.createPortal(
                 <div onClick={() => { history.push('/categories') }} className='ui dimmer modals visible active'>

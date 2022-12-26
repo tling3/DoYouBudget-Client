@@ -9,9 +9,7 @@ const MonthlyLogReducer = (state = [], action) => {
         case GET_USER_MONTHLY_LOG_BY_MONTH:
             return { ...state, ..._.mapKeys(action.payload, "id") }
         case INSERT_MONTHLY_LOG:
-            console.log("action payload reducer", action.payload)
-            return { ...state }
-        // return {}
+            return { ...state, [action.payload.id]: action.payload }
         default:
             return state
     }

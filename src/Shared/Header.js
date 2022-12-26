@@ -6,7 +6,7 @@ const Header = () => {
     <div className="ui secondary pointing menu">
       <Link to="/" className="ui header item">DoYouBudget</Link>
       <Link to="/categories" className="ui header item">Categories</Link>
-      <Link to='/logging' className="ui header item">Logging</Link>
+      <Link to="/monthlyLogging" className="ui header item">Logging</Link>
     </div>
   );
 };

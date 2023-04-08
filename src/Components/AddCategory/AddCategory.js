@@ -13,14 +13,25 @@ class AddCategories extends React.Component {
         categoryType: [],
         selected: {
             id: 0,
-            type: 'Please Select a Type'
+            text: 'Please Select a Type'
         },
         open: false,
-        type: ''
+        type: '',
     }
 
     componentDidMount() {
         this.props.getCategoryType()
+    }
+
+    mapCategoryTypeToDropDown = categoryTypes => {
+        let options = []
+        for (let k = 0; k < categoryTypes.length; k++) {
+            options.push({
+                id: categoryTypes[k].id,
+                text: categoryTypes[k].type
+            })
+        }
+        return options
     }
 
     handleCategoryChange = e => {
@@ -39,18 +50,14 @@ class AddCategories extends React.Component {
         this.setState({ selected: item })
     }
 
-    handleSubmit = e => {
-        e.preventDefault()
-        let category = e.target[0].value
-        let budget = e.target[1].value
-        let postDate = e.target[2].value
+    handleSubmitClick = () => {
+        let category = this.state.category
+        let budget = this.state.budget
         let categoryType = this.state.selected
+        let postDate = this.state.postDate
         let isValid = categoryType.id !== 0 && category !== '' && budget !== 0 && postDate !== ''
-        if (isValid) {
+        if (isValid)
             this.props.insertCategory(budget, category, postDate, categoryType.id)
-        } else {
-            // todo: what needs to be here
-        }
     }
 
     render() {
@@ -69,10 +76,9 @@ class AddCategories extends React.Component {
                                     </div>
                                     <div className='four wide field'>
                                         <label>Budget</label>
-                                        <div className='ui right labeled input'>
+                                        <div className='ui left labeled input'>
                                             <label className='ui label'>$</label>
                                             <input type='number' placeholder='Budget...' value={this.state.budget} onChange={this.handleBudgetChange}></input>
-                                            <div className='ui basic label'>.00</div>
                                         </div>
                                     </div>
                                     <div className='four wide field'>
@@ -80,19 +86,18 @@ class AddCategories extends React.Component {
                                         <DropDown
                                             selected={this.state.selected}
                                             onSelectedChange={this.handleSelectChange}
-                                            options={this.props.categoryType}
+                                            options={this.mapCategoryTypeToDropDown(this.props.categoryType)}
                                         />
                                     </div>
                                     <div className='four wide field'>
                                         <label>Post Date</label>
-                                        <div className='ui icon input'>
-                                            <input type='date' placeholder='Post Date...' value={this.state.postDate} onChange={this.handlePostDateChange}></input>
-                                            <i className='calendar alternate outline icon'></i>
-                                        </div>
+                                        <input type='date' placeholder='Post Date...' value={this.state.postDate} onChange={this.handlePostDateChange}></input>
                                     </div>
                                 </div>
-                                <input type='submit' value='Submit' className='medium ui basic button'></input>
                             </form>
+                        </div>
+                        <div className='actions'>
+                            <button type='button' onClick={this.handleSubmitClick} className='medium ui positive button'>Submit</button>
                         </div>
                     </div>
                 </div>,

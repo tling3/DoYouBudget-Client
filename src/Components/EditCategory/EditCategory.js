@@ -14,11 +14,13 @@ class EditCategory extends React.Component {
         postDate: '',
         selected: {
             id: 0,
-            type: 'Please Select a Type'
-        }
+            text: 'Please Select a Type'
+        },
+        dropDownCategoryTypes: []
     }
 
     componentDidMount() {
+        
         let id = this.props.match.params.id
         this.props.getCategory(id)
         this.props.getCategoryType()
@@ -26,15 +28,30 @@ class EditCategory extends React.Component {
     }
 
     mapCategoryToState = () => {
+        
         this.setState({ category: this.props.category.category })
         this.setState({ budget: this.props.category.budget })
         let date = Utility.CalendarDate(this.props.category.postDate.toString())
         this.setState({ postDate: date })
         let categoryType = {
             id: this.props.category.typeId,
-            type: this.props.category.type
+            text: this.props.category.type
         }
         this.setState({ selected: categoryType })
+        let dropDownCategoryTypes = this.mapCategoriesToDropDown(this.props.categoryType)
+        
+        this.setState({ dropDownCategoryTypes: dropDownCategoryTypes })
+    }
+
+    mapCategoriesToDropDown = categoryTypes => {
+        let options = []
+        for (let n = 0; n < categoryTypes.length; n++) {
+            options.push({
+                id: categoryTypes[n].id,
+                text: categoryTypes[n].type
+            })
+        }
+        return options
     }
 
     onCategoryChange = e => {
@@ -77,10 +94,9 @@ class EditCategory extends React.Component {
                     </div>
                     <div className='four wide field'>
                         <label>Budget</label>
-                        <div className="ui right labeled input">
+                        <div className="ui left labeled input">
                             <label className='ui label'>$</label>
                             <input type='text' placeholder='Budget...' value={this.state.budget} onChange={this.onBudgetChange}></input>
-                            <div className="ui basic label">.00</div>
                         </div>
                     </div>
                     <div className='four wide field'>
@@ -88,14 +104,11 @@ class EditCategory extends React.Component {
                         <DropDown
                             selected={this.state.selected}
                             onSelectedChange={this.handleSelectChange}
-                            options={this.props.categoryType} />
+                            options={this.state.dropDownCategoryTypes} />
                     </div>
                     <div className='four wide field'>
                         <label>Post Date</label>
-                        <div className='ui icon input'>
-                            <input type='date' placeholder='Post Date...' value={this.state.postDate} onChange={this.onPostDateChange}></input>
-                            <i className="calendar alternate outline icon"></i>
-                        </div>
+                        <input type='date' placeholder='Post Date...' value={this.state.postDate} onChange={this.onPostDateChange}></input>
                     </div>
                 </div>
             </form>
@@ -105,13 +118,14 @@ class EditCategory extends React.Component {
     renderActions() {
         return (
             <React.Fragment>
-                <button onClick={this.handleDeleteClick} className='medium ui basic red button'>Delete {this.state.category} Category</button>
-                <button onClick={this.handleUpdateClick} className='medium ui basic button'>Update</button>
+                <button type="button" onClick={this.handleUpdateClick} className='medium ui positive button'>Update</button>
+                <button type="button" onClick={this.handleDeleteClick} className='medium ui basic red button'>Delete</button>
             </React.Fragment>
         );
     }
 
     render() {
+        
         return (
             <Modal
                 title='Edit Category'
@@ -124,6 +138,7 @@ class EditCategory extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+    console.log("mapstatetoprops fired")
     return {
         category: state.categories[ownProps.match.params.id],
         categoryType: Object.values(state.categoryType)

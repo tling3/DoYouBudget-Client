@@ -23,11 +23,11 @@ class MonthlyLogging extends React.Component {
         this.setState({ currentMonth })
     }
 
-    // getMonth = () => {
-    //     let currentDate = new Date().toLocaleDateString()
-    //     let month = currentDate.substring(0, currentDate.indexOf("/"))
-    //     return month
-    // }
+    getMonth = () => {
+        let currentDate = new Date().toLocaleDateString()
+        let month = currentDate.substring(0, currentDate.indexOf("/"))
+        return month
+    }
 
     getTodayDate = () => {
         let currentDate = new Date().toLocaleDateString()

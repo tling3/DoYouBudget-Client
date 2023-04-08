@@ -6,12 +6,16 @@ import {
   DELETE_CATEGORY,
   GET_CATEGORY_TYPE,
   GET_USER_MONTHLY_LOG_BY_MONTH,
-  INSERT_MONTHLY_LOG
+  INSERT_MONTHLY_LOG,
+  GET_MONTHLY_LOG_BY_ID,
+  UPDATE_MONTHLY_LOG_BY_ID,
+  DELETE_MONTHLY_LOG_BY_ID
 } from "./Types"
 import DoYouBudget from "../Apis/DoYouBudget"
 import history from "../History"
 
 export const getCategories = () => async dispatch => {
+  console.log("action getCategories fired")
   const response = await DoYouBudget.get("/api/categories")
   dispatch({ type: GET_CATEGORIES, payload: response.data })
 }
@@ -68,10 +72,12 @@ export const deleteCategory = id => async dispatch => {
 
 export const getCategoryType = () => async dispatch => {
   const response = await DoYouBudget.get('/api/categoryType')
+  console.log("index response.data", response.data)
   dispatch({ type: GET_CATEGORY_TYPE, payload: response.data })
 }
 
 export const getMonthlyLogs = (userId, month) => async dispatch => {
+  
   // TODO: check if you need to parse
   let userIdInt = parseInt(userId)
   let monthInt = parseInt(month)
@@ -92,4 +98,37 @@ export const insertMonthlyLog = (amount, category, date, comment, month) => asyn
 
   const response = await DoYouBudget.post('api/monthlyLogs', body)
   dispatch({ type: INSERT_MONTHLY_LOG, payload: response.data })
+}
+
+export const getMonthlyLogById = id => async dispatch => {
+  console.log("action getMonthlyLogById fired")
+  // TODO: Check if you need to parse
+  let idInt = parseInt(id)
+  const response = await DoYouBudget.get(`/api/monthlyLogs/${id}`)
+  dispatch({ type: GET_MONTHLY_LOG_BY_ID, payload: response.data })
+}
+
+export const updateMonthlyLogById = (id, amount, category, transactionDate, comment, month) => async dispatch => {
+  let body = {
+    id: parseInt(id),
+    userId: 1,
+    amount: parseInt(amount),
+    category: category,
+    transactionDate: transactionDate,
+    comment: comment,
+    month: parseInt(month),
+    modifiedBy: "TL",
+  }
+
+  const response = await DoYouBudget.put(`api/monthlyLogs/${id}`, body)
+
+  dispatch({ type: UPDATE_MONTHLY_LOG_BY_ID, payload: response.data })
+  history.push('/monthlyLogging')
+}
+
+export const deleteMonthlyLog = id => async dispatch => {
+  console.log("action, ml id:", id)
+  const response = await DoYouBudget.delete(`api/monthlyLogs/${id}`)
+  dispatch({ type: DELETE_MONTHLY_LOG_BY_ID, payload: response.data })
+  history.push('/monthlyLogging')
 }

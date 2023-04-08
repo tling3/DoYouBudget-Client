@@ -30,7 +30,7 @@ class MonthlyLoggingTable extends React.Component {
                 <tr key={record.id}>
                     <td>{++counter}</td>
                     <td>{Utility.Date(record.transactionDate)}</td>
-                    <td>{record.amount}</td>
+                    <td>$ {record.amount}</td>
                     <td>{record.category}</td>
                     <td>{record.comment}</td>
                     <td className="center aligned">
@@ -58,8 +58,9 @@ class MonthlyLoggingTable extends React.Component {
     }
 
     renderMonthlyLogTable = () => {
+        // todo: look into this, test it, I thought there was something peculiar here happening
         // if (!this.props.monthlyLogs.length > 0) {
-            if (false) {
+        if (false) {
             return (
                 <div style={{ margin: "50px" }}>
                     <h1>No logs found for the month of selected month</h1>

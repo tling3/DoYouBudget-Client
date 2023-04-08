@@ -14,7 +14,7 @@ const DropDown = ({ options, selected, onSelectedChange }) => {
                 className='item'
                 onClick={() => { onSelectedChange(option) }}
             >
-                {option.type}
+                {option.text}
             </div>
         );
     });
@@ -24,7 +24,7 @@ const DropDown = ({ options, selected, onSelectedChange }) => {
             <div className='field'>
                 <div onClick={() => setOpen(!open)} className={`ui selection dropdown ${open ? 'visible active' : ''}`}>
                     <i className='dropdown icon'></i>
-                    <div className='text'>{selected.type}</div>
+                    <div className='text'>{selected.text}</div>
                     <div className={`menu ${open ? 'visible transition' : ''}`}>
                         {renderOptions}
                     </div>

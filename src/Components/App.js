@@ -1,14 +1,13 @@
 import React from "react"
 import { Router, Route } from "react-router-dom"
 import history from "../History"
-import PageOne from "./PageOne"
 import Categories from "./Categories/Categories"
 import AddCategory from "./AddCategory/AddCategory"
 import EditCategory from "./EditCategory/EditCategory"
 import Header from "../Shared/Header"
 import MonthlyLogging from "./MonthlyLogging/MonthlyLogging"
 import BudgetDashboard from "./BudgetDashboard"
-import EditMonthlyLog from "./MonthlyLogging/EditMonthlyLog"
+import EditMonthlyLog from "./EditMonthlyLog/EditMonthlyLog"
 
 const App = () => {
   return (

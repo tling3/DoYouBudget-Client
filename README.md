@@ -6,7 +6,7 @@ This is a Single Page Application (SPA) built with React and Redux that assists 
 
 * React - Javascript library used for building user interfaces or UI components.
 * React-Router-Dom - library of navigational components used for React.
-* Redux - state (data) container for Javascript applications.
+* Redux - state management library for Javascript applications.
 * React-Redux - React bindings for Redux (further enable compatability between React and Redux).
 * Redux-Thunk - middleware that allows async logic that interacts with the Redux store.
 * Axios - promise based HTTP client for the browser and Node.js.

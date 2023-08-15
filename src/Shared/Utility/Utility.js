@@ -1,18 +1,18 @@
 class Utility {
-
-    static ConvertDateTime(dateTime) {
+    static GetDay = dateTime => {
         let shortDate = new Date(dateTime).toLocaleDateString('en-US')
+        let firstForwardIndex = shortDate.indexOf('/')
         let dateLength = shortDate.length;
-        let monthDay = shortDate.substring(0, dateLength - 5);
-        return monthDay
+        let day = shortDate.substring(firstForwardIndex + 1, dateLength - 5);
+        return day
     }
 
-    static Date(dateTime) {
+    static Date = dateTime => {
         let shortDate = new Date(dateTime).toLocaleDateString('en-US')
         return shortDate
     }
 
-    static FormatDate(date) {
+    static CalendarDate = date => {
         let d = new Date(date)
         let month = '' + (d.getMonth() + 1)
         let day = '' + d.getDate()

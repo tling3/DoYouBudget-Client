@@ -1,11 +1,13 @@
 import React from "react"
 import { Router, Route } from "react-router-dom"
 import history from "../History"
-import PageOne from "./PageOne"
 import Categories from "./Categories/Categories"
 import AddCategory from "./AddCategory/AddCategory"
 import EditCategory from "./EditCategory/EditCategory"
 import Header from "../Shared/Header"
+import MonthlyLog from "./MonthlyLog/MonthlyLog"
+import BudgetDashboard from "./BudgetDashboard"
+import EditMonthlyLog from "./EditMonthlyLog/EditMonthlyLog"
 
 const App = () => {
   return (
@@ -13,10 +15,12 @@ const App = () => {
       <Router history={history}>
         <div>
           <Header />
-          <Route path="/" exact component={PageOne}></Route>
-          <Route path="/categories" exact component={Categories}></Route>
-          <Route path="/addCategory" exact component={AddCategory}></Route>
+          <Route path="/" exact component={BudgetDashboard}></Route>
+          <Route path="/categories" component={Categories}></Route>
+          <Route path="/addCategory" component={AddCategory}></Route>
           <Route path='/editCategory/:id' component={EditCategory}></Route>
+          <Route path='/monthlyLog' component={MonthlyLog}></Route>
+          <Route path='/editMonthlyLog/:id' component={EditMonthlyLog}></Route>
         </div>
       </Router>
     </div>

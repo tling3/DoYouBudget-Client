@@ -1,43 +1,50 @@
-import React from "react";
-import { connect } from "react-redux";
-import { getCategories } from "../../Actions/index";
-import Utility from "../../Shared/Utility/Utility";
+import React from "react"
+import { connect } from "react-redux"
+import { getCategories } from "../../Actions/index"
+import Utility from "../../Shared/Utility/Utility"
 import { Link } from 'react-router-dom'
-import "./Categories.css";
+import PageHeader from "../../Shared/Components/PageHeader"
+import "./Categories.css"
 
 class Categories extends React.Component {
   state = {
-    // you need to research this state object here - what is the purpose?
     categories: [],
   };
 
-  componentDidMount() {
-    this.props.getCategories();
+  async componentDidMount() {
+    await this.props.getCategories()
   }
 
-  onSubmit(event) {
-    event.preventDefault();
-  }
-
-  renderAdmin(item) {
+  // JSX
+  renderAdmin = id => {
     return (
       <React.Fragment>
-        <Link to={`/editCategory/${item.id}`} className="medium ui right floated basic button">Edit</Link>
+        <Link to={`/editCategory/${id}`} className="medium ui basic button">Edit</Link>
+      </React.Fragment>
+    );
+  }
+
+  getHeader = () => {
+    return (
+      <React.Fragment>
+        <PageHeader title='Categories' icon='th list icon' />
       </React.Fragment>
     );
   }
 
   mapCategories = () => {
     var counter = 0;
-    return this.props.categories.map((item) => {
-      counter++;
+    return this.props.categories.map(item => {
       return (
         <tr key={item.id}>
-          <td>{counter}</td>
+          <td>{++counter}</td>
           <td>{item.category}</td>
           <td>$ {item.budget}</td>
-          <td>{Utility.ConvertDateTime(item.postDate)}</td>
-          <td>{this.renderAdmin(item)}</td>
+          <td>{item.type}</td>
+          <td>{Utility.GetDay(item.postDate)}</td>
+          <td className="ui center aligned">
+            {this.renderAdmin(item.id)}
+          </td>
         </tr>
       );
     });
@@ -46,8 +53,8 @@ class Categories extends React.Component {
   getCategoriesTotal = () => {
     var sum = 0;
     var budgetArray = this.props.categories.map((item) => {
-      sum += item.budget;
-      return sum;
+      sum += item.budget
+      return sum
     });
     return (
       <tfoot>
@@ -55,6 +62,7 @@ class Categories extends React.Component {
           <th></th>
           <th className="right aligned"><strong>Total</strong></th>
           <th><strong>$ {budgetArray[budgetArray.length - 1]}</strong></th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -65,6 +73,7 @@ class Categories extends React.Component {
   render() {
     return (
       <div>
+        {this.getHeader()}
         <div className="margin right">
           <Link to='/addCategory' className="medium ui right basic button">Add Category</Link>
         </div>
@@ -73,9 +82,10 @@ class Categories extends React.Component {
             <tr>
               <th></th>
               <th>Category</th>
-              <th>Expense</th>
-              <th>Post Date</th>
-              <th className="ui right aligned">Admin</th>
+              <th>Budget</th>
+              <th>Type</th>
+              <th>Post Date of this Month</th>
+              <th className="center aligned">Admin</th>
             </tr>
           </thead>
           <tbody>
@@ -89,8 +99,8 @@ class Categories extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return { categories: Object.values(state.categories) };
+const mapStateToProps = state => {
+  return { categories: Object.values(state.categories) }
 };
 
-export default connect(mapStateToProps, { getCategories })(Categories);
+export default connect(mapStateToProps, { getCategories })(Categories)

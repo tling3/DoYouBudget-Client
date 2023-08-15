@@ -1,16 +1,16 @@
 # DoYouBudget-Client
 
-This is a RESTful .Net Core Web API developed for a Single Page Application (SPA) that assists users with financial budgeting. The data pertains to users, financial categories, & financial metrics.
+This is a Single Page Application (SPA) built with React and Redux that assists users with financial budgeting.
 
-## DoYouBudget-API Technology
+## DoYouBudget-Client Technology
 
-* .Net Core -  a developer platform for building many different types of applications.
-* Entity Framework (EF) Core - a ORM for .NET. It supports LINQ queries, change tracking, updates, and schema migrations.
-* Swagger - offers a systematic way of notating the interface of a RESTful service under the OpenAPI Specification.
-* Swashbuckle - a library that generates the Swagger specifications for your project. Additionally, what is called Swagger UI is contained within Swashbuckle. It provides information in a readable manner.
-* Json Patch - a JSON document with a specific format for describing changes to a JSON document. It allows partial updates for HTTP APIs in a standards compliant way.
-* AutoMapper - a library built to provide tools to map one object to another.
-* Newtonsoft Json - high-performance JSON framework for .NET.
+* React - Javascript library used for building user interfaces or UI components.
+* React-Router-Dom - library of navigational components used for React.
+* Redux - state (data) container for Javascript applications.
+* React-Redux - React bindings for Redux (further enable compatability between React and Redux).
+* Redux-Thunk - middleware that allows async logic that interacts with the Redux store.
+* Axios - promise based HTTP client for the browser and Node.js.
+* Lodash - JavaScript utility library for modularity, performance, and other extras.
 
 # Getting Started with Create React App
 

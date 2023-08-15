@@ -2,7 +2,7 @@ import React from 'react'
 import PageHeader from '../Shared/Components/PageHeader'
 
 class BudgetDashboard extends React.Component {
-
+    // JSX
     getHeader = () => {
         return (
             <PageHeader title='Budget Dashboard' icon='chart line icon' />

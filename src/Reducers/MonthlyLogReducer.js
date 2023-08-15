@@ -14,13 +14,11 @@ const MonthlyLogReducer = (state = [], action) => {
         case INSERT_MONTHLY_LOG:
             return { ...state, [action.payload.id]: action.payload }
         case GET_MONTHLY_LOG_BY_ID:
-            console.log("GET_MONTHLY_LOG_BY_ID reducer fired")
             return { ...state, [action.payload.id]: action.payload }
         case UPDATE_MONTHLY_LOG_BY_ID:
-            // todo: there is no state return here - look into this
             return {}
         case DELETE_MONTHLY_LOG_BY_ID:
-            return {}
+            return { ..._.mapKeys(action.payload, "id") }
         default:
             return state
     }

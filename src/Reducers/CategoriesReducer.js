@@ -10,7 +10,6 @@ import {
 const CategoriesReducer = (state = [], action) => {
   switch (action.type) {
     case GET_CATEGORIES:
-      console.log("Reducer GET_CATEGORIES fired")
       return { ...state, ..._.mapKeys(action.payload, "id") }
     case GET_CATEGORY:
       return { ...state, [action.payload.id]: action.payload }

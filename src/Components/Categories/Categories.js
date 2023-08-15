@@ -8,14 +8,14 @@ import "./Categories.css"
 
 class Categories extends React.Component {
   state = {
-    // you need to research this state object here - what is the purpose?
     categories: [],
   };
 
-  componentDidMount() {
-    this.props.getCategories()
+  async componentDidMount() {
+    await this.props.getCategories()
   }
 
+  // JSX
   renderAdmin = id => {
     return (
       <React.Fragment>
